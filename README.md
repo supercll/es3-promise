@@ -20,7 +20,7 @@ import "cpromise.js"
 or 
 <script src="cpromise.js"><script>
 or
-var CPromise = require("cpromise.js")
+var {CPromise} = require("cpromise.js")
 ```
   
 

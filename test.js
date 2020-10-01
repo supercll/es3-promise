@@ -61,7 +61,37 @@ p.then(null, null).then(
  */
 
 // 6. 实现.catch方法，其实catch方法就是：不传第一个参数的.then方法
-
+/* 
 p.catch(function (reason) {
     console.log("catch-no", reason);
 });
+ */
+
+// 7.实现.all静态方法
+
+var fn1 = function () {
+    return CPromise.resolve(1);
+};
+
+var fn2 = function () {
+    return new CPromise(function (resolve, reject) {
+        setTimeout(function () {
+            reject(2);
+        }, 1000);
+    });
+};
+var fn3 = function () {
+    return new CPromise(function (resolve, reject) {
+        setTimeout(function () {
+            resolve(3);
+        }, 2000);
+    });
+};
+
+CPromise.all([fn1(), fn2(), fn3()])
+    .then(function (value) {
+        console.log("ok", value);
+    })
+    .catch(function (reason) {
+        console.log("no", reason);
+    });

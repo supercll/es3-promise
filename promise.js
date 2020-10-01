@@ -91,4 +91,27 @@ CPromise.prototype.catch = function (rejectFunc) {
     return this.then(null, rejectFunc);
 };
 
+CPromise.all = function (promiseArr) {
+    var index = 0;
+    var values = [];
+
+    return new CPromise(function (resolve, reject) {
+        for (var i = 0; i < promiseArr.length; i++) {
+            (function (i) {
+                var item = promiseArr[i];
+                item instanceof CPromise ? null : (item = CPromise.resolve(item));
+                item.then(function (value) {
+                    index++;
+                    values[i] = value;
+                    if (index === promiseArr.length) {
+                        resolve(values);
+                    }
+                }).catch(function (reason) {
+                    reject(reason);
+                });
+            })(i);
+        }
+    });
+};
+
 module.exports = { CPromise };

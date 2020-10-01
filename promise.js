@@ -6,6 +6,8 @@ function CPromise(executor) {
     // 初始化状态
     this.promiseStatus = "pending";
     this.promiseValue = undefined;
+    this.resolveFunc = Function.prototype;
+    this.rejectFunc = Function.prototype;
     var _this = this;
 
     // 改变状态与value
@@ -13,6 +15,16 @@ function CPromise(executor) {
         if (_this.promiseStatus !== "pending") return;
         _this.promiseStatus = status;
         _this.promiseValue = value;
+
+        var timer = setTimeout(function () {
+            clearTimeout(timer);
+            timer = null;
+            var promiseStatus = _this.promiseStatus;
+            var promiseValue = _this.promiseValue;
+            promiseStatus === "fulfilled"
+                ? _this.resolveFunc(promiseValue)
+                : _this.rejectFunc(promiseValue);
+        });
     }
 
     // 执行executor并做错误处理
@@ -39,6 +51,11 @@ CPromise.reject = function (reason) {
     return new CPromise(function (resolve, reject) {
         reject(reason);
     });
+};
+
+CPromise.prototype.then = function (resolveFunc, rejectFunc) {
+    this.resolveFunc = resolveFunc;
+    this.rejectFunc = rejectFunc;
 };
 
 module.exports = { CPromise };

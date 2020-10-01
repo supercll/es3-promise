@@ -6,7 +6,7 @@
 let { CPromise } = require("./promise");
 
 var p = new CPromise(function (resolve, reject) {
-    resolve(1);
+    // resolve(1);
     reject(2);
 });
 
@@ -14,5 +14,16 @@ var p = new CPromise(function (resolve, reject) {
 
 // 2. 实现resolve与reject的静态方法
 
-console.log(CPromise.resolve(1));
-console.log(CPromise.reject(2));
+/* console.log(CPromise.resolve(1));
+console.log(CPromise.reject(2)); */
+
+// 3.实现.then的基础功能
+
+p.then(
+    function (value) {
+        console.log("ok", value);
+    },
+    function (reason) {
+        console.log("no", reason);
+    }
+);

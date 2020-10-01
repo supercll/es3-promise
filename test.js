@@ -49,7 +49,7 @@ p.then(
  */
 
 // 5.实现.then不传参数时的容错处理，将无法处理的promise实例顺延到下一个then中处理
-
+/* 
 p.then(null, null).then(
     function (value) {
         console.log("ok2", value);
@@ -58,3 +58,10 @@ p.then(null, null).then(
         console.log("no2", reason);
     }
 );
+ */
+
+// 6. 实现.catch方法，其实catch方法就是：不传第一个参数的.then方法
+
+p.catch(function (reason) {
+    console.log("catch-no", reason);
+});

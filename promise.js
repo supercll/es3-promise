@@ -87,4 +87,8 @@ CPromise.prototype.then = function (resolveFunc, rejectFunc) {
     });
 };
 
+CPromise.prototype.catch = function (rejectFunc) {
+    return this.then(null, rejectFunc);
+};
+
 module.exports = { CPromise };

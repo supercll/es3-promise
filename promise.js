@@ -11,8 +11,8 @@ function CPromise(executor) {
     // 改变状态与value
     function change(status, value) {
         if (_this.promiseStatus !== "pending") return;
-        _this.status = status;
-        _this.value = value;
+        _this.promiseStatus = status;
+        _this.promiseValue = value;
     }
 
     // 执行executor并做错误处理

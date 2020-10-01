@@ -11,3 +11,5 @@ var p = new CPromise(function (resolve, reject) {
 });
 
 console.log(p);
+
+

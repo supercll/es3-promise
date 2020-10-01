@@ -14,12 +14,14 @@ The Promise realized using ES3 syntax
 # 如何使用
 node端和浏览器端皆可使用
 只需引入cpromise.js即可
-···
+
+```
 import "cpromise.js"
 or 
 <script src="cpromise.js"><script>
 or
 var CPromise = require("cpromise.js")
-···
+```
+  
 
 使用方法和原生promise完全一致

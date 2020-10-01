@@ -3,7 +3,7 @@
 // 本文件编写的是测试集
 
 // 1. CPromise接收一个参数executor，参数里包含两个函数resolve与reject
-let { CPromise } = require("./promise");
+let { CPromise } = require("./cpromise");
 
 var p = new CPromise(function (resolve, reject) {
     // resolve(1);

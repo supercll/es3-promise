@@ -1,16 +1,13 @@
 function CPromise(executor) {
-    // 参数校验
     if (!(executor instanceof Function)) {
         throw new TypeError("executor must be a function");
     }
-    // 初始化状态
     this.promiseStatus = "pending";
     this.promiseValue = undefined;
     this.resolveFunc = Function.prototype;
     this.rejectFunc = Function.prototype;
     var _this = this;
 
-    // 改变状态与value
     function change(status, value) {
         if (_this.promiseStatus !== "pending") return;
         _this.promiseStatus = status;
@@ -27,7 +24,6 @@ function CPromise(executor) {
         });
     }
 
-    // 执行executor并做错误处理
     try {
         executor(
             function (value) {
@@ -114,4 +110,19 @@ CPromise.all = function (promiseArr) {
     });
 };
 
-module.exports = { CPromise };
+(function (global) {
+    // global=>window
+    // factory=>回调函数  function (window, noGlobal) {...}
+    "use strict"; // 严格模式
+
+    if (typeof module === "object" && typeof module.exports === "object") {
+        // 此条件成立说明当前运行代码的环境支持CommonJS规范
+        // 浏览器端不支持，NODE端是是支持的
+        module.exports = {
+            CPromise,
+        };
+    } else {
+        // 浏览器端运行
+        global.CPromise = CPromise;
+    }
+})(typeof window !== "undefined" ? window : this);

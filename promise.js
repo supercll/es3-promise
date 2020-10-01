@@ -54,6 +54,17 @@ CPromise.reject = function (reason) {
 };
 
 CPromise.prototype.then = function (resolveFunc, rejectFunc) {
+    if (!(resolveFunc instanceof Function)) {
+        resolveFunc = function (value) {
+            return CPromise.resolve(value);
+        };
+    }
+    if (!(rejectFunc instanceof Function)) {
+        rejectFunc = function (reason) {
+            return CPromise.reject(reason);
+        };
+    }
+
     var _this = this;
 
     return new CPromise(function (resolve, reject) {

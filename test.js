@@ -6,8 +6,8 @@
 let { CPromise } = require("./promise");
 
 var p = new CPromise(function (resolve, reject) {
-    resolve(1);
-    // reject(2);
+    // resolve(1);
+    reject(2);
 });
 
 // console.log(p);
@@ -29,7 +29,7 @@ console.log(CPromise.reject(2)); */
 ); */
 
 // 4.实现.then的链式调用
-
+/* 
 p.then(
     function (value) {
         console.log("ok", value);
@@ -39,6 +39,18 @@ p.then(
         console.log("no", reason);
     }
 ).then(
+    function (value) {
+        console.log("ok2", value);
+    },
+    function (reason) {
+        console.log("no2", reason);
+    }
+);
+ */
+
+// 5.实现.then不传参数时的容错处理，将无法处理的promise实例顺延到下一个then中处理
+
+p.then(null, null).then(
     function (value) {
         console.log("ok2", value);
     },

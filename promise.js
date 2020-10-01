@@ -30,4 +30,15 @@ function CPromise(executor) {
     }
 }
 
+CPromise.resolve = function (value) {
+    return new CPromise(function (resolve, reject) {
+        resolve(value);
+    });
+};
+CPromise.reject = function (reason) {
+    return new CPromise(function (resolve, reject) {
+        reject(reason);
+    });
+};
+
 module.exports = { CPromise };

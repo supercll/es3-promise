@@ -2,7 +2,7 @@
 
 // 本文件编写的是测试集
 
-// 1. CPromise接收一个参数executor，
+// 1. CPromise接收一个参数executor，参数里包含两个函数resolve与reject
 let { CPromise } = require("./promise");
 
 var p = new CPromise(function (resolve, reject) {
@@ -10,6 +10,9 @@ var p = new CPromise(function (resolve, reject) {
     reject(2);
 });
 
-console.log(p);
+// console.log(p);
 
+// 2. 实现resolve与reject的静态方法
 
+console.log(CPromise.resolve(1));
+console.log(CPromise.reject(2));

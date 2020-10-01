@@ -6,8 +6,8 @@
 let { CPromise } = require("./promise");
 
 var p = new CPromise(function (resolve, reject) {
-    // resolve(1);
-    reject(2);
+    resolve(1);
+    // reject(2);
 });
 
 // console.log(p);
@@ -19,11 +19,30 @@ console.log(CPromise.reject(2)); */
 
 // 3.实现.then的基础功能
 
-p.then(
+/* p.then(
     function (value) {
         console.log("ok", value);
     },
     function (reason) {
         console.log("no", reason);
+    }
+); */
+
+// 4.实现.then的链式调用
+
+p.then(
+    function (value) {
+        console.log("ok", value);
+        return new CPromise.resolve(3);
+    },
+    function (reason) {
+        console.log("no", reason);
+    }
+).then(
+    function (value) {
+        console.log("ok2", value);
+    },
+    function (reason) {
+        console.log("no2", reason);
     }
 );

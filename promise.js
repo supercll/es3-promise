@@ -54,8 +54,26 @@ CPromise.reject = function (reason) {
 };
 
 CPromise.prototype.then = function (resolveFunc, rejectFunc) {
-    this.resolveFunc = resolveFunc;
-    this.rejectFunc = rejectFunc;
+    var _this = this;
+
+    return new CPromise(function (resolve, reject) {
+        _this.resolveFunc = function (value) {
+            try {
+                var res = resolveFunc(value);
+                res instanceof CPromise ? res.then(resolve, reject) : resolve(res);
+            } catch (e) {
+                reject(e.message);
+            }
+        };
+        _this.rejectFunc = function (reason) {
+            try {
+                var res = rejectFunc(reason);
+                res instanceof CPromise ? res.then(resolve, reject) : resolve(res);
+            } catch (e) {
+                reject(e.message);
+            }
+        };
+    });
 };
 
 module.exports = { CPromise };
